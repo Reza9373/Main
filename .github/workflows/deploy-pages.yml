@@ -4,26 +4,32 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pages: write
-      id-token: write
     steps:
       - uses: actions/checkout@v4
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: '18'
+
       - name: Install deps
         run: npm ci
+
       - name: Build
         run: npm run build
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+
+      - name: Upload artifact for Pages
+        uses: actions/upload-pages-artifact@v4
         with:
           path: ./dist
+
       - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v1
+        uses: actions/deploy-pages@v4
