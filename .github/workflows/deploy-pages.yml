@@ -27,7 +27,6 @@ jobs:
         run: npm run build
 
       - name: Upload artifact for Pages
-        # Only this single upload step — required by deploy-pages
         uses: actions/upload-pages-artifact@v4
         with:
           path: ./dist
